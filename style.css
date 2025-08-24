@@ -28,9 +28,39 @@ header {
   color: white;
 }
 
+.pic {
+  text-align: center;
+  margin-top:30px;
+}
+/*pic function*/
+.pic img {
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  border: 3px solid #333;
+  object-fit: cover;
+  transition: all 1.5s ease-in-out;
+  box-shadow: 0 5px 15px #f9f9f9;
+}
+.pic img:hover { 
+  width:300px;
+  height:300px;
+  border-radius: 45%;
+  transform:rotate(360deg) scale(1.05);
+  box-shadow: 0 10px 25px #ffd700;
+
+}
+/*logo */
+.logo:hover{
+  transform: scale(1.3) rotate(360deg);
+  transition: transform 1.5s ease-in-out;
+  box-shadow:0 0 25px #f9f9f9 ;
+
+}
 .logo {
   font-size: 28px;
   font-weight: bold;
+  border-radius: 50deg;
 }
 
 .logo span {
@@ -40,7 +70,7 @@ header {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 25px;
 }
 
 .nav-links li a {
@@ -67,10 +97,16 @@ header {
 .home-content h1 {
   font-size: 40px;
   animation: fadeInDown 1.5s ease;
+  
 }
 
 .home-content h1 span {
+  font-size: 3.5rem;
   color: #ffd700;
+  transition: transform 0.5s ease-in;
+
+
+
 }
 
 .home-content p {
@@ -86,13 +122,14 @@ header {
   border-radius: 30px;
   font-weight: bold;
   margin-top: 20px;
-  transition: 0.3s;
+  transition: 1.2s;
 }
 
 .btn:hover {
+  font-size: 1.2rem;
   background: white;
   color: royalblue;
-  transform: scale(1.1);
+  transform: rotate(360deg);
 }
 
 /* Sections */
@@ -100,8 +137,17 @@ section {
   padding: 80px 20px;
   text-align: center;
 }
+h2{
+  background-color: rgb(37, 37, 219) ;
+  color:white;
+  padding:10px 20px;
+  border-radius: 50%;
+  box-shadow: 3px 3px 10px rgb(55, 55, 177);
+  display: inline-block;
 
+}
 .about p {
+ 
   max-width: 700px;
   margin: auto;
   line-height: 1.8;
@@ -112,7 +158,7 @@ section {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
 }
 
 .skills-box span {
@@ -159,7 +205,37 @@ section {
   margin: auto;
   gap: 15px;
 }
+.contact-link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  transition:0.5s ease-in-out;
 
+ }
+ .contact-link[href^="mailto:"]{
+  background: #0073e6;
+  color: white;
+  border: 2px solid navy;
+  box-shadow: 0 10px 25px grey;
+  
+ }
+  .contact-link[href^="mailto:"]:hover{
+    background-color: white;
+    color: #0073e6;
+  }
+   .contact-link[href^="tel:"]{
+    background-color: #0073e6;
+    color: white;
+    border: 2px solid navy;
+    box-shadow: 0 10px 25px grey;
+   }
+   .contact-link[href^="tel:"]:hover{
+     background-color: white;
+    color: #0073e6;
+   }
 .contact input, .contact textarea {
   padding: 12px;
   border: 1px solid #ccc;
