@@ -76,7 +76,7 @@ header {
 /* Home */
 .home {
   height: 100vh;
-  background: linear-gradient(130deg, #012d20,#013b29,#024631,#046145,#037d59, #3e856b,#a5d1c1,#3e856b,#037d59,#012d20,#013b29,#024631,#046145);
+  background: linear-gradient(130deg, #012d20,#013b29,#024631,#046145,#037d59, #3e856b,#a5d1c1,#3e856b,#037d59,#012d20,#013b29,#024631,#046145, #012d20,#013b29,#024631,#046145,#037d59, #3e856b,#a5d1c1,#3e856b,#037d59,#012d20);
   display: flex;
   justify-content: center;
   align-items: center;
