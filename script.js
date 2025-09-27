@@ -1,4 +1,4 @@
-// Contact Form Submission
+/* Contact Form Submission
 document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -9,4 +9,4 @@ document.getElementById("contactForm").addEventListener("submit", function(event
        ` Thanks ${name}! I'll contact you soon at ${email}.`;
 
     document.getElementById("contactForm").reset();
-});
+});*/

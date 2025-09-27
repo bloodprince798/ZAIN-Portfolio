@@ -76,7 +76,7 @@ header {
 /* Home */
 .home {
   height: 100vh;
-  background: linear-gradient(to right, #024631, rgb(27, 155, 112));
+  background: linear-gradient(130deg, #012d20,#013b29,#024631,#046145,#037d59, #3e856b,#a5d1c1,#3e856b,#037d59,#012d20,#013b29,#024631,#046145);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,8 +134,12 @@ h2{
   border-radius: 50%;
   box-shadow: 3px 3px 10px  rgb(3, 105, 75);
   display: inline-block;
+  transition: 1.5s;
 
 }
+
+
+
 .about p {
  
   max-width: 700px;
@@ -181,7 +185,21 @@ h2{
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
+.project-card b {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color:#024631
+}
+.project-card a {
+  text-decoration: underline;
+   color:#024631 ;
 
+  font-size: 1.1rem;
+}
+.project-card i{
+  color : #024631;
+  font-size: larger;
+  font-weight: 500;
+}
 .project-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
