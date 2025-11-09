@@ -3,37 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmic Calculator</title>
-    <link rel="stylesheet" href="style.c.css">
+    <title>Calculator</title>
+     <link href="style.c.css" rel="stylesheet">
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    
     <div class="calculator">
         <div id="display" class="display">0</div>
         <div class="buttons">
-            <button class="button clear" onclick="clearDisplay()">Clr</button>
-            <button class="button operator" onclick="deleteLast()">Del</button>
-            <button class="button operator" onclick="append('%')">%</button>
-            <button class="button operator" onclick="append('/')">/</button>
+            <button class="button" onclick="clearDisplay()">Clr</button>
+            <button class="button" onclick="deleteLast()">Del</button>
+            <button class="button" onclick="append('%')">%</button>
+            <button class="button" onclick="append('/')">/</button>
             <button class="button" onclick="append('7')">7</button>
             <button class="button" onclick="append('8')">8</button>
             <button class="button" onclick="append('9')">9</button>
-            <button class="button operator" onclick="append('*')">×</button>
+            <button class="button" onclick="append('*')">*</button>
             <button class="button" onclick="append('4')">4</button>
             <button class="button" onclick="append('5')">5</button>
             <button class="button" onclick="append('6')">6</button>
-            <button class="button operator" onclick="append('-')">-</button>
+            <button class="button" onclick="append('-')">-</button>
             <button class="button" onclick="append('1')">1</button>
             <button class="button" onclick="append('2')">2</button>
             <button class="button" onclick="append('3')">3</button>
-            <button class="button operator" onclick="append('+')">+</button>
+            <button class="button" onclick="append('+')">+</button>
             <button class="button" onclick="append('.')">.</button>
             <button class="button" onclick="append('0')">0</button>
-            <button class="button equal" onclick="calculate()">=</button>
+            <button class="equal" onclick="calculate()">=</button>
+
+            
         </div>
     </div>
-
-    <script src="script.c.js"></script>
+    <audio id="ClickSound" src="https://www.sound.com/buttons/button-09.wav" preload="auto"></audio>
+<script src="script.c.js"></script>
 </body>
 </html>
