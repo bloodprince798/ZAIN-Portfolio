@@ -89,7 +89,6 @@ header {
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  height: 10px;
   margin: 0 auto;
 }
 
@@ -112,7 +111,6 @@ header {
 .logo span {
   color: var(--cosmic-accent);
 }
-
 .nav-links {
   list-style: none;
   display: flex;
@@ -187,9 +185,48 @@ header {
   margin: 3px 0;
   transition: 0.3s;
 }
+  /* Hamburger animation */
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+  
+  /* Animation for menu card */
+  @keyframes menuSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Close menu when clicking outside */
+  .menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 6, 23, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+  }
+  
+  .menu-overlay.active {
+    display: block;
+  }
 
-/* ========== ATOM-STYLE PROFILE PICTURE WITH RINGS ========== */
-/* ========== ATOM-STYLE PROFILE PICTURE WITH RINGS ========== */
 .home {
   min-height: 100vh;
   display: flex;

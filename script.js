@@ -24,13 +24,53 @@ function setupMobileMenu() {
     const navLinks = document.getElementById('navLinks');
     
     if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
+        // Create overlay for closing menu
+        const overlay = document.createElement('div');
+        overlay.className = 'menu-overlay';
+        document.body.appendChild(overlay);
+        
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             navLinks.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+        
+        // Close menu on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+        
+        // Close menu when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                overlay.classList.remove('active');
+            }
         });
     }
 }
-
 // ====================== SMOOTH SCROLL ======================
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -104,12 +144,12 @@ function setupContactForm() {
             submitBtn.disabled = false;
             
             // Fallback: Open email client
-            setTimeout(() => {
+          /*  setTimeout(() => {
                 const userEmail = 'bloodprince798@gmail.com';
                 const subject = `Message from ${name}`;
                 const body = `${message}%0D%0A%0D%0AFrom: ${name}%0D%0AEmail: ${email}`;
                 window.location.href = `mailto:${userEmail}?subject=${subject}&body=${body}`;
-            }, 1000);
+            }, 1000);*/
             
         }, 1500);
     });
@@ -402,3 +442,4 @@ document.body.style.opacity = '0';
 document.body.style.transition = 'opacity 0.5s';
 
 console.log('✨ Portfolio JS Ready!');
+        
