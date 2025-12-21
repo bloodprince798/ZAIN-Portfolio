@@ -3,37 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-     <link href="style.c.css" rel="stylesheet">
+    <title>NexusCalc | Ultimate Calculator & Converter</title>
+    <link rel="stylesheet" href="style.c.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="calculator">
-        <div id="display" class="display">0</div>
-        <div class="buttons">
-            <button class="button" onclick="clearDisplay()">Clr</button>
-            <button class="button" onclick="deleteLast()">Del</button>
-            <button class="button" onclick="append('%')">%</button>
-            <button class="button" onclick="append('/')">/</button>
-            <button class="button" onclick="append('7')">7</button>
-            <button class="button" onclick="append('8')">8</button>
-            <button class="button" onclick="append('9')">9</button>
-            <button class="button" onclick="append('*')">*</button>
-            <button class="button" onclick="append('4')">4</button>
-            <button class="button" onclick="append('5')">5</button>
-            <button class="button" onclick="append('6')">6</button>
-            <button class="button" onclick="append('-')">-</button>
-            <button class="button" onclick="append('1')">1</button>
-            <button class="button" onclick="append('2')">2</button>
-            <button class="button" onclick="append('3')">3</button>
-            <button class="button" onclick="append('+')">+</button>
-            <button class="button" onclick="append('.')">.</button>
-            <button class="button" onclick="append('0')">0</button>
-            <button class="equal" onclick="calculate()">=</button>
-
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+                <h2>NexusCalc</h2>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <h3>Calculator Types</h3>
+                <button class="menu-item active" data-mode="basic">
+                    <i class="fas fa-calculator"></i>
+                    <span>Basic</span>
+                </button>
+                <button class="menu-item" data-mode="scientific">
+                    <i class="fas fa-flask"></i>
+                    <span>Scientific</span>
+                </button>
+                <button class="menu-item" data-mode="programmer">
+                    <i class="fas fa-code"></i>
+                    <span>Programmer</span>
+                </button>
+                <button class="menu-item" data-mode="graphing">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Graphing</span>
+                </button>
+            </div>
             
+            <div class="menu-section">
+                <h3>Mathematics</h3>
+                <button class="menu-item" data-mode="algebra">
+                    <i class="fas fa-square-root-alt"></i>
+                    <span>Algebra</span>
+                </button>
+                <button class="menu-item" data-mode="trigonometry">
+                    <i class="fas fa-drafting-compass"></i>
+                    <span>Trigonometry</span>
+                </button>
+                <button class="menu-item" data-mode="matrix">
+                    <i class="fas fa-th"></i>
+                    <span>Matrix</span>
+                </button>
+                <button class="menu-item" data-mode="calculus">
+                    <i class="fas fa-infinity"></i>
+                    <span>Calculus</span>
+                </button>
+                <button class="menu-item" data-mode="statistics">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Statistics</span>
+                </button>
+            </div>
+            
+            <div class="menu-section">
+                <h3>Converters</h3>
+                <button class="menu-item" data-mode="unit">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Unit Converter</span>
+                </button>
+                <button class="menu-item" data-mode="currency">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Currency</span>
+                </button>
+                <button class="menu-item" data-mode="temperature">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperature</span>
+                </button>
+                <button class="menu-item" data-mode="length">
+                    <i class="fas fa-ruler"></i>
+                    <span>Length</span>
+                </button>
+                <button class="menu-item" data-mode="weight">
+                    <i class="fas fa-weight"></i>
+                    <span>Weight</span>
+                </button>
+                <button class="menu-item" data-mode="time">
+                    <i class="fas fa-clock"></i>
+                    <span>Time</span>
+                </button>
+                <button class="menu-item" data-mode="volume">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </button>
+                <button class="menu-item" data-mode="area">
+                    <i class="fas fa-vector-square"></i>
+                    <span>Area</span>
+                </button>
+            </div>
+            
+            <div class="menu-section">
+                <h3>Settings</h3>
+                <button class="menu-item" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <button class="menu-item" id="historyBtn">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </button>
+                <button class="menu-item" id="clearHistoryBtn">
+                    <i class="fas fa-trash"></i>
+                    <span>Clear History</span>
+                </button>
+                <button class="menu-item" id="helpBtn">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>v2.1.0 | Made with <i class="fas fa-heart"></i></p>
         </div>
     </div>
-    <audio id="ClickSound" src="https://www.sound.com/buttons/button-09.wav" preload="auto"></audio>
-<script src="script.c.js"></script>
+    
+    <!-- Overlay for sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="header-title">
+                <h1 id="calculatorTitle">Calculator</h1>
+                <p class="subtitle" id="currentMode">Basic Mode</p>
+            </div>
+            
+            <div class="header-actions">
+                <button class="action-btn" id="modeIndicator">
+                    <i class="fas fa-calculator"></i>
+                    <span>Basic</span>
+                </button>
+                <button class="action-btn" id="angleToggle">
+                    <i class="fas fa-angle-right"></i>
+                    <span>DEG</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Display Area -->
+        <div class="display-container">
+            <div class="display-history" id="displayHistory"></div>
+            <div class="display-main" id="displayMain">0</div>
+            <div class="display-memory" id="displayMemory">
+                <i class="fas fa-memory"></i> M: 0
+            </div>
+        </div>
+
+        <!-- Basic Calculator (Default) -->
+        <div class="calculator basic-calc active">
+            <div class="button-row">
+                <button class="btn btn-func" data-action="clear">C</button>
+                <button class="btn btn-func" data-action="backspace">
+                    <i class="fas fa-backspace"></i>
+                </button>
+                <button class="btn btn-func" data-action="percent">%</button>
+                <button class="btn btn-op" data-action="/">÷</button>
+            </div>
+            
+            <div class="button-row">
+                <button class="btn btn-num" data-action="7">7</button>
+                <button class="btn btn-num" data-action="8">8</button>
+                <button class="btn btn-num" data-action="9">9</button>
+                <button class="btn btn-op" data-action="*">×</button>
+            </div>
+            
+            <div class="button-row">
+                <button class="btn btn-num" data-action="4">4</button>
+                <button class="btn btn-num" data-action="5">5</button>
+                <button class="btn btn-num" data-action="6">6</button>
+                <button class="btn btn-op" data-action="-">−</button>
+            </div>
+            
+            <div class="button-row">
+                <button class="btn btn-num" data-action="1">1</button>
+                <button class="btn btn-num" data-action="2">2</button>
+                <button class="btn btn-num" data-action="3">3</button>
+                <button class="btn btn-op" data-action="+">+</button>
+            </div>
+            
+            <div class="button-row">
+                <button class="btn btn-num" data-action="+/-">±</button>
+                <button class="btn btn-num" data-action="0">0</button>
+                <button class="btn btn-num" data-action=".">.</button>
+                <button class="btn btn-equals" data-action="=">=</button>
+            </div>
+        </div>
+
+        <!-- Scientific Calculator -->
+        <div class="calculator scientific-calc">
+            <div class="scientific-header">
+                <h3><i class="fas fa-flask"></i> Scientific Functions</h3>
+            </div>
+            <div class="scientific-grid">
+                <button class="btn btn-sci" data-action="sin">sin</button>
+                <button class="btn btn-sci" data-action="cos">cos</button>
+                <button class="btn btn-sci" data-action="tan">tan</button>
+                <button class="btn btn-sci" data-action="log">log</button>
+                <button class="btn btn-sci" data-action="ln">ln</button>
+                
+                <button class="btn btn-sci" data-action="sin⁻¹">sin⁻¹</button>
+                <button class="btn btn-sci" data-action="cos⁻¹">cos⁻¹</button>
+                <button class="btn btn-sci" data-action="tan⁻¹">tan⁻¹</button>
+                <button class="btn btn-sci" data-action="10^x">10ˣ</button>
+                <button class="btn btn-sci" data-action="e^x">eˣ</button>
+                
+                <button class="btn btn-sci" data-action="x²">x²</button>
+                <button class="btn btn-sci" data-action="x³">x³</button>
+                <button class="btn btn-sci" data-action="√">√</button>
+                <button class="btn btn-sci" data-action="∛">∛</button>
+                <button class="btn btn-sci" data-action="x^y">xʸ</button>
+                
+                <button class="btn btn-sci" data-action="π">π</button>
+                <button class="btn btn-sci" data-action="e">e</button>
+                <button class="btn btn-sci" data-action="!">x!</button>
+                <button class="btn btn-sci" data-action="abs">|x|</button>
+                <button class="btn btn-sci" data-action="mod">mod</button>
+            </div>
+            <div class="scientific-note">
+                <p><i class="fas fa-info-circle"></i> Use DEG/RAD toggle for trig functions</p>
+            </div>
+        </div>
+
+        <!-- Unit Converter -->
+        <div class="calculator unit-converter">
+            <div class="converter-header">
+                <h3><i class="fas fa-exchange-alt"></i> Unit Converter</h3>
+                <select id="converterType">
+                    <option value="length">Length</option>
+                    <option value="weight">Weight</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="area">Area</option>
+                    <option value="volume">Volume</option>
+                    <option value="time">Time</option>
+                    <option value="speed">Speed</option>
+                    <option value="data">Data Storage</option>
+                    <option value="currency">Currency</option>
+                </select>
+            </div>
+            
+            <div class="converter-inputs">
+                <div class="input-group">
+                    <input type="number" id="fromValue" placeholder="Enter value" value="1">
+                    <select id="fromUnit"></select>
+                </div>
+                
+                <div class="converter-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                
+                <div class="input-group">
+                    <input type="number" id="toValue" placeholder="Result" readonly>
+                    <select id="toUnit"></select>
+                </div>
+            </div>
+            
+            <div class="converter-result">
+                <h4 id="conversionResult">1 meter = 100 centimeters</h4>
+            </div>
+            
+            <button class="btn-convert" id="convertBtn">
+                <i class="fas fa-sync-alt"></i> Convert
+            </button>
+        </div>
+
+        <!-- Weight Converter -->
+        <div class="calculator weight-converter">
+            <div class="converter-header">
+                <h3><i class="fas fa-weight"></i> Weight Converter</h3>
+            </div>
+            
+            <div class="converter-inputs">
+                <div class="input-group">
+                    <input type="number" id="weightFromValue" placeholder="Enter value" value="1">
+                    <select id="weightFromUnit">
+                        <option value="kilogram">Kilogram (kg)</option>
+                        <option value="gram">Gram (g)</option>
+                        <option value="milligram">Milligram (mg)</option>
+                        <option value="pound">Pound (lb)</option>
+                        <option value="ounce">Ounce (oz)</option>
+                        <option value="ton">Ton (t)</option>
+                        <option value="metricTon">Metric Ton</option>
+                        <option value="carat">Carat</option>
+                        <option value="stone">Stone</option>
+                    </select>
+                </div>
+                
+                <div class="converter-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                
+                <div class="input-group">
+                    <input type="number" id="weightToValue" placeholder="Result" readonly>
+                    <select id="weightToUnit">
+                        <option value="kilogram">Kilogram (kg)</option>
+                        <option value="gram">Gram (g)</option>
+                        <option value="pound">Pound (lb)</option>
+                        <option value="ounce">Ounce (oz)</option>
+                        <option value="ton">Ton (t)</option>
+                        <option value="milligram">Milligram (mg)</option>
+                        <option value="metricTon">Metric Ton</option>
+                        <option value="carat">Carat</option>
+                        <option value="stone">Stone</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="converter-result">
+                <h4 id="weightConversionResult">1 kg = 1000 g</h4>
+            </div>
+            
+            <button class="btn-convert" id="weightConvertBtn">
+                <i class="fas fa-sync-alt"></i> Convert
+            </button>
+        </div>
+
+        <!-- Matrix Calculator -->
+        <div class="calculator matrix-calc">
+            <div class="matrix-header">
+                <h3><i class="fas fa-th"></i> Matrix Calculator</h3>
+                <select id="matrixOperation">
+                    <option value="add">Addition (A + B)</option>
+                    <option value="subtract">Subtraction (A - B)</option>
+                    <option value="multiply">Multiplication (A × B)</option>
+                    <option value="transpose">Transpose</option>
+                    <option value="determinant">Determinant</option>
+                    <option value="inverse">Inverse</option>
+                </select>
+            </div>
+            
+            <div class="matrix-inputs">
+                <div class="matrix-container">
+                    <h4>Matrix A</h4>
+                    <div class="matrix-size">
+                        <label>Rows: </label>
+                        <input type="number" id="rowsA" min="1" max="5" value="2">
+                        <label>Cols: </label>
+                        <input type="number" id="colsA" min="1" max="5" value="2">
+                        <button class="btn-small" id="generateA">Generate</button>
+                    </div>
+                    <div class="matrix-grid" id="matrixA"></div>
+                </div>
+                
+                <div class="matrix-operator">
+                    <i class="fas fa-plus" id="matrixOpIcon"></i>
+                </div>
+                
+                <div class="matrix-container">
+                    <h4>Matrix B</h4>
+                    <div class="matrix-size">
+                        <label>Rows: </label>
+                        <input type="number" id="rowsB" min="1" max="5" value="2">
+                        <label>Cols: </label>
+                        <input type="number" id="colsB" min="1" max="5" value="2">
+                        <button class="btn-small" id="generateB">Generate</button>
+                    </div>
+                    <div class="matrix-grid" id="matrixB"></div>
+                </div>
+            </div>
+            
+            <div class="matrix-result">
+                <h4>Result Matrix</h4>
+                <div class="matrix-grid" id="matrixResult"></div>
+            </div>
+            
+            <button class="btn-matrix" id="calculateMatrix">
+                <i class="fas fa-calculator"></i> Calculate
+            </button>
+        </div>
+
+        <!-- Algebra Calculator -->
+        <div class="calculator algebra-calc">
+            <div class="algebra-header">
+                <h3><i class="fas fa-square-root-alt"></i> Algebra Solver</h3>
+                <select id="algebraType">
+                    <option value="quadratic">Quadratic Equation</option>
+                    <option value="linear">Linear Equation</option>
+                    <option value="polynomial">Polynomial</option>
+                    <option value="simultaneous">Simultaneous Equations</option>
+                </select>
+            </div>
+            
+            <div class="algebra-input" id="algebraInput">
+                <!-- Dynamic content will be loaded -->
+                <div class="quadratic-input">
+                    <h4>ax² + bx + c = 0</h4>
+                    <div class="input-row">
+                        <input type="number" id="quadA" placeholder="a" value="1">
+                        <span>x² +</span>
+                        <input type="number" id="quadB" placeholder="b" value="0">
+                        <span>x +</span>
+                        <input type="number" id="quadC" placeholder="c" value="0">
+                        <span>= 0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="algebra-result">
+                <h4>Solution:</h4>
+                <div id="algebraSolution">Enter values to solve</div>
+            </div>
+            
+            <button class="btn-algebra" id="solveAlgebra">
+                <i class="fas fa-solve"></i> Solve
+            </button>
+        </div>
+
+        <!-- Other Calculators will be dynamically loaded -->
+
+        <!-- History Panel -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3><i class="fas fa-history"></i> Calculation History</h3>
+                <button class="close-history">&times;</button>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+
+        <!-- Help Modal -->
+        <div class="help-modal" id="helpModal">
+            <div class="help-content">
+                <div class="help-header">
+                    <h3><i class="fas fa-question-circle"></i> NexusCalc Help</h3>
+                    <button class="close-help">&times;</button>
+                </div>
+                <div class="help-body">
+                    <h4>Keyboard Shortcuts:</h4>
+                    <ul>
+                        <li>Numbers: 0-9</li>
+                        <li>Operators: +, -, *, /</li>
+                        <li>Clear: Esc or C</li>
+                        <li>Equals: Enter or =</li>
+                        <li>Backspace: Backspace</li>
+                        <li>Decimal: . (period)</li>
+                    </ul>
+                    <h4>Features:</h4>
+                    <p>• Click sidebar items to switch between calculators</p>
+                    <p>• Use DEG/RAD toggle for trigonometric functions</p>
+                    <p>• Memory functions: MC, MR, M+, M-, MS</p>
+                    <p>• All converters support real-time conversion</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="memory-controls">
+                <button class="btn-mem" data-action="mc">MC</button>
+                <button class="btn-mem" data-action="mr">MR</button>
+                <button class="btn-mem" data-action="m+">M+</button>
+                <button class="btn-mem" data-action="m-">M-</button>
+                <button class="btn-mem" data-action="ms">MS</button>
+            </div>
+            <div class="footer-info">
+                <span id="currentDate"></span>
+                <span class="separator">•</span>
+                <span>NexusCalc v2.1</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="clickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.c.js"></script>
 </body>
 </html>

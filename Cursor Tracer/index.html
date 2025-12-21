@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Tracer Dragon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐉</text></svg>">
+</head>
+<body>
+    <!-- Welcome Popup -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="dragon-icon">🐉</div>
+                <h2>Welcome to Cursor Tracer Dragon!</h2>
+                <p>Experience the magic of a dragon following your every move</p>
+            </div>
+            
+            <div class="popup-body">
+                <div class="instruction-step">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <div>
+                        <h4>Desktop Users</h4>
+                        <p>Move your cursor around the screen. The dragon will follow it!</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <i class="fas fa-hand-point-up"></i>
+                    <div>
+                        <h4>Mobile Users</h4>
+                        <p>Touch and drag your finger. The dragon will follow your touch!</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <i class="fas fa-magic"></i>
+                    <div>
+                        <h4>Special Features</h4>
+                        <p>Click the control buttons for color changes and effects</p>
+                    </div>
+                </div>
+                
+                <div class="auto-close-notice">
+                    <i class="fas fa-clock"></i>
+                    <p>This popup will auto-close in <span id="countdown">5</span> seconds</p>
+                </div>
+            </div>
+            
+            <div class="popup-footer">
+                <button class="popup-btn primary" id="startBtn">
+                    <i class="fas fa-play"></i> Start Now
+                </button>
+                <button class="popup-btn secondary" id="skipBtn">
+                    Skip Tutorial
+                </button>
+            </div>
+            
+            <div class="popup-close-btn" id="closePopupBtn">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">🐉</div>
+            <h1 class="main-title">Cursor Tracer Dragon</h1>
+            <p class="subtitle">A magical Chinese dragon that follows your every move</p>
+        </header>
+        
+        <!-- Dragon Container -->
+        <div class="dragon-container" id="dragonContainer">
+            <!-- Dragon will be drawn here by JavaScript -->
+        </div>
+        
+        <!-- Instructions Panel -->
+        <div class="instructions-panel" id="instructionsPanel">
+            <div class="panel-header">
+                <h3><i class="fas fa-info-circle"></i> Quick Guide</h3>
+                <button class="panel-close" id="closePanelBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Move Cursor</strong>
+                        <p>The dragon follows your cursor movement</p>
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fas fa-hand-point-up"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Touch Screen</strong>
+                        <p>On mobile, drag finger to move dragon</p>
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Change Colors</strong>
+                        <p>Click color button to change dragon appearance</p>
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <strong>Special Effects</strong>
+                        <p>Click fire button for dragon breath effects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-ruler-combined"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Length</span>
+                    <span class="stat-value" id="lengthValue">15</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Speed</span>
+                    <span class="stat-value" id="speedValue">Medium</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Color</span>
+                    <span class="stat-value" id="colorValue">Gold</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Status</span>
+                    <span class="stat-value" id="statusValue">Ready</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Control Buttons -->
+        <div class="control-buttons">
+            <button class="control-btn" id="colorBtn" title="Change Color">
+                <i class="fas fa-palette"></i>
+                <span>Color</span>
+            </button>
+            <button class="control-btn" id="sizeBtn" title="Change Size">
+                <i class="fas fa-expand-alt"></i>
+                <span>Size</span>
+            </button>
+            <button class="control-btn" id="effectBtn" title="Dragon Breath">
+                <i class="fas fa-fire"></i>
+                <span>Breath</span>
+            </button>
+            <button class="control-btn" id="resetBtn" title="Reset Position">
+                <i class="fas fa-redo"></i>
+                <span>Reset</span>
+            </button>
+            <button class="control-btn" id="helpBtn" title="Show Instructions">
+                <i class="fas fa-question-circle"></i>
+                <span>Help</span>
+            </button>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Cursor Tracer Dragon | Move cursor/finger to animate | Made with <i class="fas fa-heart"></i></p>
+        </footer>
+    </div>
+    
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworksCanvas"></canvas>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

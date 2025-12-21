@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zyron | Professional LoFi Generator</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Wavesurfer CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Zyron</h1>
+                    <p class="tagline">Professional LoFi Generator</p>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <button class="control-btn" id="themeToggle" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="control-btn" id="aboutBtn" title="About developer">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="card upload-section">
+                <div class="card-header">
+                    <div class="header-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="header-text">
+                        <h2>Upload Audio</h2>
+                        <p class="card-subtitle">Upload your audio file to start processing</p>
+                    </div>
+                </div>
+                
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" accept="audio/*" hidden>
+                    
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <i class="fas fa-file-audio"></i>
+                        </div>
+                        <h3>Drop your audio here</h3>
+                        <p>Supports MP3, WAV, M4A, OGG (Max 50MB)</p>
+                        <button class="btn btn-primary" id="browseBtn">
+                            <i class="fas fa-folder-open"></i> Browse Files
+                        </button>
+                    </div>
+                    
+                    <div class="file-info" id="fileInfo">
+                        <div class="file-meta">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4 id="fileName">No file selected</h4>
+                                <p id="fileDetails">Size: - | Duration: -</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Player & Waveform -->
+            <section class="card player-section">
+                <div class="player-header">
+                    <div class="now-playing">
+                        <h3 id="nowPlaying">Ready to process</h3>
+                        <p id="trackStatus">Upload an audio file</p>
+                    </div>
+                    <div class="track-stats">
+                        <span class="stat"><i class="fas fa-clock"></i> <span id="trackDuration">0:00</span></span>
+                        <span class="stat"><i class="fas fa-microphone"></i> <span id="bitrate">- kbps</span></span>
+                    </div>
+                </div>
+                
+                <!-- Waveform -->
+                <div class="waveform-container">
+                    <div id="waveform"></div>
+                    <div class="waveform-overlay">
+                        <div class="trim-marker start" id="trimStart"></div>
+                        <div class="trim-marker end" id="trimEnd"></div>
+                        <div class="playhead" id="playhead"></div>
+                    </div>
+                </div>
+                
+                <!-- Trim Controls -->
+                <div class="trim-controls">
+                    <div class="time-input-group">
+                        <div class="time-input">
+                            <label>Start:</label>
+                            <input type="text" id="startTime" value="0:00" readonly>
+                            <button class="time-set-btn" id="setStartBtn">
+                                <i class="fas fa-flag"></i>
+                            </button>
+                        </div>
+                        <div class="time-input">
+                            <label>End:</label>
+                            <input type="text" id="endTime" value="0:00" readonly>
+                            <button class="time-set-btn" id="setEndBtn">
+                                <i class="fas fa-flag-checkered"></i>
+                            </button>
+                        </div>
+                        <div class="time-input">
+                            <label>Trim Duration:</label>
+                            <span id="trimDuration">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="trim-actions">
+                        <button class="btn btn-secondary" id="clearTrimBtn">
+                            <i class="fas fa-times"></i> Clear Trim
+                        </button>
+                        <button class="btn btn-primary" id="previewTrimBtn">
+                            <i class="fas fa-play"></i> Preview Trim
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Player Controls -->
+                <div class="player-controls">
+                    <div class="playback-controls">
+                        <button class="control-btn" id="skipBackBtn">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        
+                        <button class="control-btn play-btn" id="playBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        
+                        <button class="control-btn" id="skipForwardBtn">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <span class="time-display" id="currentTime">0:00</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                            <input type="range" class="progress-slider" id="progressSlider" min="0" max="100" value="0">
+                        </div>
+                        <span class="time-display" id="totalTime">0:00</span>
+                    </div>
+                    
+                    <div class="volume-section">
+                        <button class="control-btn" id="muteBtn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <div class="volume-slider-container">
+                            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+                            <div class="volume-level" id="volumeLevel"></div>
+                        </div>
+                        <span class="volume-value" id="volumeValue">80%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Effects Section -->
+            <section class="card effects-section">
+                <div class="card-header">
+                    <div class="header-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <div class="header-text">
+                        <h2>LoFi Effects</h2>
+                        <p class="card-subtitle">Customize your LoFi sound</p>
+                    </div>
+                    
+                    <div class="presets">
+                        <button class="preset-btn" data-preset="chill">
+                            <i class="fas fa-moon"></i> Chill
+                        </button>
+                        <button class="preset-btn" data-preset="warm">
+                            <i class="fas fa-sun"></i> Warm
+                        </button>
+                        <button class="preset-btn" data-preset="vintage">
+                            <i class="fas fa-record-vinyl"></i> Vintage
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="effects-grid">
+                    <!-- Bass Control -->
+                    <div class="effect-control">
+                        <div class="effect-header">
+                            <div class="effect-icon">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                            <div class="effect-info">
+                                <label for="bassSlider">Bass Boost</label>
+                                <span class="effect-value" id="bassValue">0 dB</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="effect-slider" id="bassSlider" 
+                                   min="-12" max="12" value="0" step="0.5">
+                            <div class="slider-ticks">
+                                <span>-12</span>
+                                <span>-6</span>
+                                <span>0</span>
+                                <span>6</span>
+                                <span>12</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Speed Control -->
+                    <div class="effect-control">
+                        <div class="effect-header">
+                            <div class="effect-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="effect-info">
+                                <label for="speedSlider">Playback Speed</label>
+                                <span class="effect-value" id="speedValue">100%</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="effect-slider" id="speedSlider" 
+                                   min="50" max="150" value="100" step="1">
+                            <div class="slider-ticks">
+                                <span>50%</span>
+                                <span>75%</span>
+                                <span>100%</span>
+                                <span>125%</span>
+                                <span>150%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Control -->
+                    <div class="effect-control">
+                        <div class="effect-header">
+                            <div class="effect-icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <div class="effect-info">
+                                <label for="filterSlider">Low-pass Filter</label>
+                                <span class="effect-value" id="filterValue">Off</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="effect-slider" id="filterSlider" 
+                                   min="0" max="100" value="0" step="1">
+                            <div class="slider-ticks">
+                                <span>Off</span>
+                                <span>Low</span>
+                                <span>Mid</span>
+                                <span>High</span>
+                                <span>Max</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reverb Control -->
+                    <div class="effect-control">
+                        <div class="effect-header">
+                            <div class="effect-icon">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <div class="effect-info">
+                                <label for="reverbSlider">Reverb</label>
+                                <span class="effect-value" id="reverbValue">30%</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="effect-slider" id="reverbSlider" 
+                                   min="0" max="100" value="30" step="1">
+                            <div class="slider-ticks">
+                                <span>Dry</span>
+                                <span>25%</span>
+                                <span>50%</span>
+                                <span>75%</span>
+                                <span>Wet</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Vinyl Crackle -->
+                    <div class="effect-control">
+                        <div class="effect-header">
+                            <div class="effect-icon">
+                                <i class="fas fa-record-vinyl"></i>
+                            </div>
+                            <div class="effect-info">
+                                <label for="crackleSlider">Vinyl Crackle</label>
+                                <span class="effect-value" id="crackleValue">Off</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="effect-slider" id="crackleSlider" 
+                                   min="0" max="100" value="0" step="1">
+                            <div class="slider-ticks">
+                                <span>Off</span>
+                                <span>Soft</span>
+                                <span>Medium</span>
+                                <span>Heavy</span>
+                                <span>Max</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Equalizer -->
+                    <div class="effect-control">
+                        <div class="effect-header">
+                            <div class="effect-icon">
+                                <i class="fas fa-wave-square"></i>
+                            </div>
+                            <div class="effect-info">
+                                <label for="eqSlider">EQ Warmth</label>
+                                <span class="effect-value" id="eqValue">Neutral</span>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" class="effect-slider" id="eqSlider" 
+                                   min="-50" max="50" value="0" step="1">
+                            <div class="slider-ticks">
+                                <span>Dark</span>
+                                <span>Warm</span>
+                                <span>Neutral</span>
+                                <span>Bright</span>
+                                <span>Crisp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Processing & Output -->
+            <section class="card output-section">
+                <div class="card-header">
+                    <div class="header-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="header-text">
+                        <h2>Process & Export</h2>
+                        <p class="card-subtitle">Generate and download your LoFi track</p>
+                    </div>
+                </div>
+                
+                <div class="output-controls">
+                    <div class="quality-settings">
+                        <div class="quality-option">
+                            <input type="radio" name="quality" id="qualityLow" value="128" checked>
+                            <label for="qualityLow">
+                                <i class="fas fa-compress"></i>
+                                <span>Standard (128kbps)</span>
+                                <small>Good for sharing</small>
+                            </label>
+                        </div>
+                        <div class="quality-option">
+                            <input type="radio" name="quality" id="qualityMedium" value="192">
+                            <label for="qualityMedium">
+                                <i class="fas fa-music"></i>
+                                <span>High (192kbps)</span>
+                                <small>Recommended</small>
+                            </label>
+                        </div>
+                        <div class="quality-option">
+                            <input type="radio" name="quality" id="qualityHigh" value="320">
+                            <label for="qualityHigh">
+                                <i class="fas fa-star"></i>
+                                <span>Premium (320kbps)</span>
+                                <small>Best quality</small>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="output-actions">
+                        <button class="btn btn-process" id="processBtn">
+                            <i class="fas fa-magic"></i>
+                            <span>Process LoFi</span>
+                            <div class="spinner" id="processSpinner"></div>
+                        </button>
+                        
+                        <button class="btn btn-success" id="downloadBtn" disabled>
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                        
+                        <button class="btn btn-secondary" id="resetBtn">
+                            <i class="fas fa-redo"></i>
+                            <span>Reset</span>
+                        </button>
+                    </div>
+                    
+                    <div class="status-info" id="statusInfo">
+                        <i class="fas fa-info-circle"></i>
+                        <span id="statusText">Upload an audio file to begin</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="copyright">
+                    <p>© 2024 Zyron LoFi Generator</p>
+                    <p class="developer-info">Crafted by <span class="dev-name">Zain-ul-Abideen</span></p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link" id="contactLink">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                    <a href="#" class="footer-link" id="docsLink">
+                        <i class="fas fa-book"></i> Documentation
+                    </a>
+                    <a href="#" class="footer-link" id="supportLink">
+                        <i class="fas fa-life-ring"></i> Support
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>About Zyron</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="developer-card">
+                        <div class="dev-avatar">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>Zain-ul-Abideen</h4>
+                        <p class="dev-title">Full Stack Developer & Audio Engineer</p>
+                        
+                        <div class="dev-contact">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:bloodprince798@gmail.com">bloodprince798@gmail.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+92 309 0476955</span>
+                            </div>
+                        </div>
+                        
+                        <div class="dev-skills">
+                            <span class="skill">Web Audio API</span>
+                            <span class="skill">Digital Signal Processing</span>
+                            <span class="skill">UI/UX Design</span>
+                        </div>
+                        
+                        <p class="dev-bio">
+                            Creating professional audio tools with focus on quality and user experience.
+                            Specializing in web-based audio processing solutions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Contact Developer</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Your Name</label>
+                            <input type="text" id="contactName" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address</label>
+                            <input type="email" id="contactEmail" placeholder="you@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" rows="4" placeholder="Describe your inquiry..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast" id="successToast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js"></script>
+    
+    <!-- Main Script -->
+    <script src="app.js"></script>
+</body>
+</html>
